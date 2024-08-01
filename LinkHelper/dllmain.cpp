@@ -24,13 +24,6 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 #include <sys/mman.h>
 #include <fcntl.h> /* For O_* constants */
 #endif // _WIN32
-#include <stdio.h>
-#include <iostream>
-#include "dllmain.h"
-#include <fstream>
-#include <string>
-#include <locale>
-#include <codecvt>
 
 struct LinkedMem {
 #ifdef _WIN32
