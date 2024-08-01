@@ -29,6 +29,8 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 #include "dllmain.h"
 #include <fstream>
 #include <string>
+#include <locale>
+#include <codecvt>
 
 struct LinkedMem {
 #ifdef _WIN32
@@ -83,16 +85,15 @@ extern "C" __declspec(dllexport) void initMumble() {
 	}
 
 #endif
-	printf("Mumble stuff set up");
 }
 
-extern "C" __declspec(dllexport) void updateMumble(wchar_t *identity, wchar_t *context, float fAvatarFrontX, float fAvatarFrontY, float fAvatarFrontZ, float fAvatarTopX, float fAvatarTopY, float fAvatarTopZ, float fAvatarPositionX, float fAvatarPositionY, float fAvatarPositionZ, float fCameraPositionX, float fCameraPositionY, float fCameraPositionZ, float fCameraFrontX, float fCameraFrontY, float fCameraFrontZ, float fCameraTopX, float fCameraTopY, float fCameraTopZ) {
+extern "C" __declspec(dllexport) void updateMumble(wchar_t *context, float fAvatarFrontX, float fAvatarFrontY, float fAvatarFrontZ, float fAvatarTopX, float fAvatarTopY, float fAvatarTopZ, float fAvatarPositionX, float fAvatarPositionY, float fAvatarPositionZ, float fCameraPositionX, float fCameraPositionY, float fCameraPositionZ, float fCameraFrontX, float fCameraFrontY, float fCameraFrontZ, float fCameraTopX, float fCameraTopY, float fCameraTopZ) {
 	if (!lm)
 		return;
 
 	if (lm->uiVersion != 2) {
 		wcsncpy(lm->name, L"GTMumbleLink", 256);
-		wcsncpy(lm->description, L"Mumble Link for Gorilla Tag.", 2048);
+		wcsncpy(lm->description, L"MumbleLink support for Gorilla Tag", 2048);
 		lm->uiVersion = 2;
 	}
 	lm->uiTick++;
@@ -116,7 +117,7 @@ extern "C" __declspec(dllexport) void updateMumble(wchar_t *identity, wchar_t *c
 	// Position of the avatar (here standing slightly off the origin)
 	lm->fAvatarPosition[0] = fAvatarPositionX;
 	lm->fAvatarPosition[1] = fAvatarPositionY;
-	lm->fAvatarPosition[2] = fAvatarPositionY;
+	lm->fAvatarPosition[2] = fAvatarPositionZ;
 
 
 	// Same as avatar but for the camera.
@@ -132,24 +133,15 @@ extern "C" __declspec(dllexport) void updateMumble(wchar_t *identity, wchar_t *c
 	lm->fCameraTop[1] = fCameraTopY;
 	lm->fCameraTop[2] = fCameraTopZ;
 
-	// Identifier which uniquely identifies a certain player in a context (e.g. the ingame name).
-	wcsncpy(lm->identity, identity, 256);
-
 	// Context should be equal for players which should be able to hear each other positional and
 	// differ for those who shouldn't (e.g. it could contain the server+port and team)
 	memcpy(lm->context, context, 16);
 
+	// Identifier which uniquely identifies a certain player in a context (e.g. the ingame name).
+
+	HW_PROFILE_INFO hwProfileInfo;
+	if (GetCurrentHwProfile(&hwProfileInfo))
+		wcsncpy(lm->identity, hwProfileInfo.szHwProfileGuid, 256);
+
 	lm->context_len = 16;
-}
-
-extern "C" __declspec(dllexport) void testInterop(wchar_t str, float num) {
-	std::ofstream interopString;
-	interopString.open("interop-string.txt");
-	interopString << str;
-	interopString.close();
-
-	std::ofstream interopFloat;
-	interopFloat.open("interop-float.txt");
-	interopFloat << num;
-	interopFloat.close();
 }
