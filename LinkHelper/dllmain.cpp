@@ -138,7 +138,8 @@ extern "C" __declspec(dllexport) void updateMumble(wchar_t *context, float fAvat
 	memcpy(lm->context, context, 16);
 
 	// Identifier which uniquely identifies a certain player in a context (e.g. the ingame name).
-
+	// HACK: We should be using the PlayFab Player ID, but every time I try it just spits out garbage data.
+	// Here we are using the system's hardware ID, which should be unique enough but it's not optimal
 	HW_PROFILE_INFO hwProfileInfo;
 	if (GetCurrentHwProfile(&hwProfileInfo))
 		wcsncpy(lm->identity, hwProfileInfo.szHwProfileGuid, 256);
