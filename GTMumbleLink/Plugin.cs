@@ -34,8 +34,8 @@ namespace GTMumbleLink
             var camUp = Camera.main.transform.up;
             // We have to be absolutely positive everything we are using is valid.
             // Any exception within the LinkHelper that isn't handled properly will
-            // cause the Unity editor to hard crash and we do not want that
-            if (PlayerId != null && Context != null && camPos != null && camFwrd != null && camUp != null)
+            // cause the Unity player to hard crash and we do not want that
+            if (PhotonNetwork.LocalPlayer.UserId != null && id != null && camPos != null && camFwrd != null && camUp != null)
             {
                 updateMumble(Context, 
                     camFwrd.x, camFwrd.y, camFwrd.z, 
