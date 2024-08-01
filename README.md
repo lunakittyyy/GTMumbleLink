@@ -9,3 +9,8 @@ A Gorilla Tag mod that adds support for Mumble Link.
 3. Connect to a Mumble server of some sort. I highly recommend hosting your own, but you can also buy servers or get limited ones for free from various places. You can also join public Mumble servers, but if you want to play with friends this might get messy.
 4. Boot up the game with Mumble running. The game should link with your Mumble client, and if you meet with other GTMumbleLink users in the same Mumble server while in the same room as them in-game, you should hear high-quality positional voice chat with them!
 
+# Reasons to use Mumble over built-in voice chat
+- Gorilla Tag's voice chat settings results in extremely low audio quality as compared to Mumble
+- Mumble has morw accurate positional audio effects
+- Mumble's positional audio distances and volumes are configurable
+- All the features and customizability of Mumble without losing positional features
