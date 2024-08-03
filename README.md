@@ -11,6 +11,7 @@ A Gorilla Tag mod that adds support for Mumble Link.
 
 # Reasons to use Mumble over built-in voice chat
 - Gorilla Tag's voice chat settings results in extremely low audio quality as compared to Mumble
+- Lower latency than Gorilla Tag's voice chat
 - Mumble has more accurate positional audio effects
 - Mumble's positional audio distances and volumes are configurable
 - All the features and customizability of Mumble without losing positional features
