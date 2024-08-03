@@ -15,3 +15,6 @@ A Gorilla Tag mod that adds support for Mumble Link.
 - Mumble has more accurate positional audio effects
 - Mumble's positional audio distances and volumes are configurable
 - All the features and customizability of Mumble without losing positional features
+
+# Known Issues
+- Positional audio sometimes doesn't work and you need to rejoin the room a few times for others to hear you positionally
